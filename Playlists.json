@@ -1,0 +1,666 @@
+{
+	"info": {
+		"_postman_id": "87862734-b954-480e-a332-a83e9908aa6f",
+		"name": "Playlists",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18505409",
+		"_collection_link": "https://annabuiluk-provectus.postman.co/workspace/Team-Workspace~f399274d-689b-493d-8307-98f4f0372e80/collection/18505409-87862734-b954-480e-a332-a83e9908aa6f?action=share&source=collection_link&creator=18505409"
+	},
+	"item": [
+		{
+			"name": "Create Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"token\", jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Host",
+						"value": "id.nugsdev.net",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "3TwoVlLAUFrJX33n3HSCSO",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "z5qkvc7ORNms7opUHRROPn",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "annatest@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "ANNAtest123",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "nugsnet:api nugsnet:legacyapi openid profile email",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://id.nugsdev.net/connect/token",
+					"protocol": "https",
+					"host": [
+						"id",
+						"nugsdev",
+						"net"
+					],
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user playlists",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists?limit=102",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "102"
+						},
+						{
+							"key": "offset",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a playlist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"My Playlist from test12345\",\n  \"trackIds\": [\n    \"565880\",\"566595\",\"119962\",\"523487\"\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all user playlists",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/all",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"all"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get playlist by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/{{playlistId}}",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"{{playlistId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove playlist",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/{{playlistId}}",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"{{playlistId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rename playlist",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Test Remane Playlist and remove track\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/{{playlistId}}",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"{{playlistId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Share a playlist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"playlistId\": \"1274995\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/{{playlistId}}/share",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"{{playlistId}}",
+						"share"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add shared playlist to the current user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/shared/{{sharedId}}/save",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"shared",
+						"{{sharedId}}",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get shared playlist by shared Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/shared/{{sharedId}}",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"shared",
+						"{{sharedId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove track from playlist",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/{{playlistId}}/tracks/{{trackId}}",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"{{playlistId}}",
+						"tracks",
+						"{{trackId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove track item from playlist",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/{{playlistId}}/playlist-tracks/{{playlistTrackId}}",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"{{playlistId}}",
+						"playlist-tracks",
+						"{{playlistTrackId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove tracks from playlist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"trackIds\": [\n    \"523487\",\"119962\"\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/{{playlistId}}/remove-tracks",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"{{playlistId}}",
+						"remove-tracks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove track items from playlist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"playlistTrackIds\": [\n    \"565880\"\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/{{playlistId}}/remove-playlist-tracks",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"{{playlistId}}",
+						"remove-playlist-tracks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get playlist tracks",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/{{playlistId}}/playlist-tracks",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"{{playlistId}}",
+						"playlist-tracks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get shared playlist tracks",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/shared/{{sharedId}}/playlist-tracks",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"shared",
+						"{{sharedId}}",
+						"playlist-tracks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all shared playlist tracks",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/shared/{{sharedId}}/playlist-tracks/all",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"shared",
+						"{{sharedId}}",
+						"playlist-tracks",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all playlist tracks",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/{{playlistId}}/playlist-tracks/all",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"{{playlistId}}",
+						"playlist-tracks",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add tracks to the playlist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"trackIds\": [\n    \"565880\",\"566595\",\"119962\",\"523487\",\"569052\",\"358351\",\"352067\"\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/{{playlistId}}/tracks",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"{{playlistId}}",
+						"tracks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update playlist tracks",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"trackIds\": [\n    \"565880\",\"566595\",\"119962\"\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url_stash}}/me/playlists/{{playlistId}}/tracks",
+					"host": [
+						"{{base_url_stash}}"
+					],
+					"path": [
+						"me",
+						"playlists",
+						"{{playlistId}}",
+						"tracks"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"var jsonData = JSON.parse(responseBody);",
+					"pm.collectionVariables.set(\"token\",jsonData[\"access_token\"]);"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url_stash",
+			"value": "https://stash.nugsdev.net/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "playlistId",
+			"value": "1275003"
+		},
+		{
+			"key": "sharedId",
+			"value": "cdb5d0949a67",
+			"type": "string"
+		},
+		{
+			"key": "trackId",
+			"value": "566595",
+			"type": "string"
+		},
+		{
+			"key": "playlistTrackId",
+			"value": "565880",
+			"type": "string"
+		}
+	]
+}
